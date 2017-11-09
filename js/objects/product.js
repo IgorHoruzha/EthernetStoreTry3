@@ -105,6 +105,21 @@ function Product(name, szProductImage, szProductInfo, price, id, catId) {
                 p[0].mBuildProductSection(e.target.textContent);
 
             }
+            if (e.target.className == 'AdminDeleteProductInWebSite') {
+                //TODO : Detete target product 
+console.dir($(e.target).parent());
+console.dir(' TODO:Detete target product');
+                alertify.confirm("Delete.",
+                    function() {
+
+                        alertify.success('Product deleted');
+                    },
+                    function() {
+                        alertify.error('Cancel');
+                    });
+            }
+
+
 
         });
     }

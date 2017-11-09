@@ -275,6 +275,7 @@ main #mainProducts #Products {
 }
 
 main #mainProducts #Products .Product {
+    position: relative;
     width: fit-content;
     margin: 1%;
     flex: 1 1 24%;
@@ -670,4 +671,43 @@ margin: 0 auto;
 #AdminAddCategoriesForm form fieldset input
 {
     
+}
+
+.AdminDeleteProductInWebSite{
+
+}
+
+
+.AdminDeleteProductInWebSite {
+ width: 42px;
+ padding: 10px 0;
+ position: absolute;
+ top: -6px;
+ /* left: 25px; */
+ right: 6px;
+ text-align: center;
+ border-top-left-radius: 3px;
+ background: #F47530;
+ /* outline: 1px dashed; */
+}
+.AdminDeleteProductInWebSite:before {
+ height: 0;
+ width: 0px;
+ right: -6.03px;
+ top: 0.1px;
+ border-bottom: 6px solid #8D5A20;
+ border-right: 6px solid transparent;
+}
+.AdminDeleteProductInWebSite:before, .AdminDeleteProductInWebSite:after {
+  content: "";
+  position: absolute;
+}
+.AdminDeleteProductInWebSite:after {
+  height: 0;
+  width: 0;
+  bottom: -29.5px;
+  left: 0;
+  border-left: 21px solid #F47530;
+  border-right: 21px solid #F47530;
+  border-bottom: 30px solid transparent;
 }

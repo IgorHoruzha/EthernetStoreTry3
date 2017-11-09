@@ -107,7 +107,7 @@ $(function() {
 
     if (localStorage.login) {
         $('#SignIn').text('admin');
-        $('#AdminMenu').css('display','block');
+        $('#AdminMenu').css('display', 'block');
     } else {
         $(document).click(function(e) {
             if (e.target.id == "SignIn") {
@@ -127,6 +127,11 @@ $(function() {
 });
 
 /*Admin Menu*/
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
 
 let AdminAddProducts = $('#AdminAddProductsForm');
 
@@ -146,7 +151,7 @@ function GetFormInfo(form) {
 
 
 function addInBaze(data) {
-    // console.dir(data);
+    console.dir(data);
     alertify.success(data);
 }
 
@@ -155,7 +160,6 @@ AdminAddProducts.click(function(e) {
     if (e.target.type == "submit") {
         e.preventDefault();
         let aFormInputsVal = GetFormInfo(AdminAddProducts);
-
         let NewProduct = new Product(aFormInputsVal[0], aFormInputsVal[1], aFormInputsVal[2], aFormInputsVal[3], aFormInputsVal[4], aFormInputsVal[5]);
         for (let i = 0; i < p.length; i++) {
             if (NewProduct.compareV2(NewProduct, p[i])) {
@@ -165,7 +169,7 @@ AdminAddProducts.click(function(e) {
         }
 
         p[p.length] = NewProduct;
-     $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, addInBaze, "JSON");
+        $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, addInBaze, "JSON");
 
         // let szCallBackInfo = getFormInfo(CallBackInfoDialog);
         console.log("szCallBackInfo");
@@ -195,8 +199,6 @@ AdminAddCategoriesForm.click(function(e) {
         c[c.length] = NewCategory;
         $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', 'Category': 'Category', 'Categories': JSON.stringify(c) }, addInBaze, "JSON");
 
-      //  // let szCallBackInfo = getFormInfo(CallBackInfoDialog);
-      //  console.log("szCallBackInfo");
     }
 });
 
@@ -205,18 +207,20 @@ AdminAddCategoriesForm.click(function(e) {
 $('#AdminMenu').click(function(e) {
     if (localStorage.login && localStorage.password) {
         if (e.target.id == "AdminAddProducts") {
-
             alertify.genericDialog(AdminAddProducts[0]);
             AdminAddProducts.css('display', 'block');
             return;
-        }
+        } else
         if (e.target.id == "AdminAddCategories") {
-
             alertify.genericDialog(AdminAddCategoriesForm[0]);
             AdminAddCategoriesForm.css('display', 'block');
             return;
+        } else
+        if (e.target.id == "AdminDeleteProducts") {
+            if (!$('.AdminDeleteProductInWebSite').length)
+                $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');        
+            return;
         }
-
 
     } else {
         alertify.genericDialog(CallBackInfoDialog[0]);

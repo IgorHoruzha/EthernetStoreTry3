@@ -59,7 +59,8 @@ function GetCategorytData(Data) {
 
 
 function GetFormInfo(form) {
-    let formFild = form[0].children[0].elements.Fild;
+        console.dir($(form).find(':input'));
+    let formFild = $(form).find(':input');
     console.dir(formFild);
     let FildValueArr = [];
 
@@ -86,7 +87,7 @@ function showAnswer(data) {
 }
 
 
-var CallBackInfoDialog = $($('#CallBackInfo')[0]);
+var CallBackInfoDialog = $('#CallBackInfo');
 
 $(function() {
 
@@ -189,7 +190,8 @@ if (localStorage.login && localStorage.password) {
             if (e.target.type == "submit") {
                 e.preventDefault();
                 let aFormInputsVal = GetFormInfo(this);
-                let action = $(e).attr('id');
+          
+                let action = $(this).parent().attr('id');
                 if (action)
                     self[action](e, aFormInputsVal);
             }

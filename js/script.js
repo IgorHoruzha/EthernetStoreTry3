@@ -1,6 +1,6 @@
 'use strict'
 
-
+ 
 function reviwerProducts(key, value) {
     if (value instanceof Array) return value;
     if (typeof value == 'object') return new Product(value.name, value.szProductImage, value.szProductInfo, value.price, value.id, value.catId);
@@ -16,11 +16,6 @@ function reviwerCategories(key, value) {
 let p;
 let c;
 
-if (localStorage.cart) {
-    var aCart = JSON.parse(localStorage.cart);
-}
-
-
 function GetProductData(Data) {
     p = JSON.parse(Data, reviwerProducts);
     if (p[0].mPageIsLoaded_Product) {
@@ -29,94 +24,52 @@ function GetProductData(Data) {
     }
 }
 
+if (localStorage.cart) {
+    var aCart = JSON.parse(localStorage.cart);
+}
+
 function GetCategorytData(Data) {
     c = JSON.parse(Data, reviwerCategories);
-    if (c[0].mPageIsLoaded_Category)
-        c[0].mPageIsLoaded_Category(c);
+    if (c[0].mPageIsLoaded_Category) c[0].mPageIsLoaded_Category(c);
+}
+
+function GetFormInfo(form) {
+    let formFild = $(form).find(':input');
+    let FildValueArr = [];
+
+    for (let i = 0; i < formFild.length; i++) FildValueArr[i] = $(formFild[i]).val();
+
+    return FildValueArr;
 }
 
 
-
-alertify.genericDialog || alertify.dialog('genericDialog', function() {
-    return {
-        main: function(content) {
-            this.setContent(content);
-        },
-        setup: function() {
-            return {
-                focus: {
-                    element: function() {
-                        return this.elements.body.querySelector(this.get('selector'));
-                    },
-                    select: true
-                },
-                options: {
-                    basic: true,
-                    maximizable: false,
-                    resizable: false,
-                    padding: false
-                }
-            };
-        },
-        settings: {
-            selector: undefined
-        }
-    };
-});
-
-function showAnswer(data) {
-    console.dir(data);
-    if (data[0] == 'admin' && data[1] == 'admin') {
-        localStorage.login = data[0];
-        localStorage.password = data[1];
-        $('#SignIn').text('admin');
-        $(document).off("click");
-        alertify.success('Welcome ' + data[0]);
-    } else {
-        alertify.error("Incorrect Password");
-    }
-
-}
-
-function getFormInfo(Form) {
-    console.dir(localStorage.product);
-    let cFormInfo = {
-        name: Form.find("input[name='text']").val(),
-        password: Form.find("input[name='password']").val()
+function HeaderMenu(elem) {
+ let CallBackInfoDialog = $('#Autorization');
+    this.SignIn = function() {
+        alertify.genericDialog((CallBackInfoDialog.css('display', 'block'))[0]);
     };
 
-    return cFormInfo;
+    let self = this;
+
+    elem.on('click', function(e) {
+        let action = $(e.target).attr('id');
+        if (self[action])
+            self[action]();
+    });
 }
 
-var CallBackInfoDialog = $($('#CallBackInfo')[0]);
-
-console.log(localStorage.category);
-
+function setAutorizationComplite(UserAccauntName)
+{
+        $('#SignIn').text(UserAccauntName);            
+        $('#SignIn').attr({id: 'authorized'});    
+        $("#AdminMenu").css("display", "block");
+}
 
 $(function() {
-
-    CallBackInfoDialog.click(function(e) {
-        if (e.target.type == "submit") {
-            e.preventDefault();
-            let szCallBackInfo = getFormInfo(CallBackInfoDialog);
-            console.log(szCallBackInfo);
-            $.post("php/send.php", szCallBackInfo, showAnswer, "JSON");
-        }
-
-    });
-
-    if (localStorage.login) {
-        $('#SignIn').text('admin');
-        $('#AdminMenu').css('display', 'block');
+    if (localStorage.login && localStorage.password) {   
+        setAutorizationComplite(localStorage.login);    
     } else {
-        $(document).click(function(e) {
-            if (e.target.id == "SignIn") {
-                alertify.genericDialog(CallBackInfoDialog[0]);
-                CallBackInfoDialog.css('display', 'block');
-                return;
-            }
-
-        });
+        new HeaderMenu($("body>header"));
     }
 
     $.post("php/send.php", { 'GET': 'GET', 'Products': 'Products' }, GetProductData);
@@ -126,40 +79,62 @@ $(function() {
     $('#CartCountProduct').text(cCart.getProducts().length);
 });
 
-/*Admin Menu*/
-////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////
 
-let AdminAddProducts = $('#AdminAddProductsForm');
+//TODO : Redo this Method
+function showAnswer(data) {
+    if (data[2] == "Autorization")
+        if (data[3]) {
+            localStorage.login = data[0];
+            localStorage.password = data[1];
+            setAutorizationComplite(localStorage.login);      
+            alertify.success('Welcome ' + data[0]);
+            alertify.closeModalAlertyfiWindowCUSTOM();
+        } else {
+            alertify.error(data[0] + data[1]);
+        }
+    else if (data[0] == "AddInBaze") {
+        alertify.success(data[1]);
 
-function GetFormInfo(form) {
-    console.dir(form[0].children[0]);
-    let formFild = form[0].children[0].elements.Fild;
-    console.dir(formFild);
-    let FildValueArr = [];
 
-    for (let i = 0; i < formFild.length; i++) {
-        FildValueArr[i] = $(formFild[i]).val();
     }
-
-    return FildValueArr;
-
 }
 
+/*Admin Menu delegation*/
+/*//////////////////////////////////////////////////////*/
 
-function addInBaze(data) {
-    console.dir(data);
-    alertify.success(data);
+function AdminMenu(elem) {
+    this.AdminAddProductsForm = $("#AdminAddProductsForm");
+    this.AdminAddCategoriesForm = $("#AdminAddCategoriesForm");
+    this.AdminAddProducts = function() {
+        alertify.genericDialog(this.AdminAddProductsForm[0]);
+    };
+
+    this.AdminAddCategories = function() {
+        alertify.genericDialog(this.AdminAddCategoriesForm[0]);
+    };
+
+    this.AdminDeleteProducts = function() {
+        if (!$('.AdminDeleteProductInWebSite').length)
+            $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');
+    };
+
+    let self = this;
+
+    elem.on('click', function(e) {
+        let action = $(e.target).attr('id');
+        if (self[action])
+            self[action]();
+    });
 }
 
-AdminAddProducts.click(function(e) {
+new AdminMenu($('#AdminMenu'));
 
-    if (e.target.type == "submit") {
-        e.preventDefault();
-        let aFormInputsVal = GetFormInfo(AdminAddProducts);
+/* Forms delegation*/
+/*//////////////////////////////////////////////////////*/
+
+function AdminForms(elem) {
+
+    this.AdminAddProductsForm = function(e, aFormInputsVal) {
         let NewProduct = new Product(aFormInputsVal[0], aFormInputsVal[1], aFormInputsVal[2], aFormInputsVal[3], aFormInputsVal[4], aFormInputsVal[5]);
         for (let i = 0; i < p.length; i++) {
             if (NewProduct.compareV2(NewProduct, p[i])) {
@@ -169,25 +144,10 @@ AdminAddProducts.click(function(e) {
         }
 
         p[p.length] = NewProduct;
-        $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, addInBaze, "JSON");
+        $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, showAnswer, "JSON");
 
-        // let szCallBackInfo = getFormInfo(CallBackInfoDialog);
-        console.log("szCallBackInfo");
-    }
-});
-
-
-
-let AdminAddCategoriesForm = $('#AdminAddCategoriesForm');
-
-
-
-AdminAddCategoriesForm.click(function(e) {
-
-    if (e.target.type == "submit") {
-        e.preventDefault();
-        let aFormInputsVal = GetFormInfo(AdminAddCategoriesForm);
-
+    };
+    this.AdminAddCategoriesForm = function(e, aFormInputsVal) {
         let NewCategory = new Category(aFormInputsVal[0], aFormInputsVal[1]);
         for (let i = 0; i < c.length; i++) {
             if (NewCategory.compare(NewCategory, c[i])) {
@@ -197,35 +157,28 @@ AdminAddCategoriesForm.click(function(e) {
         }
 
         c[c.length] = NewCategory;
-        $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', 'Category': 'Category', 'Categories': JSON.stringify(c) }, addInBaze, "JSON");
-
+        $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', 'Category': 'Category', 'Categories': JSON.stringify(c) }, showAnswer, "JSON");
+    };
+    this.Autorization = function(e, aFormInputsVal) {
+        $.post("php/send.php", { name: aFormInputsVal[0], password: aFormInputsVal[1] }, showAnswer, "JSON");
     }
-});
 
+    var self = this;
 
+    elem.on('click', function(e) {
 
-$('#AdminMenu').click(function(e) {
-    if (localStorage.login && localStorage.password) {
-        if (e.target.id == "AdminAddProducts") {
-            alertify.genericDialog(AdminAddProducts[0]);
-            AdminAddProducts.css('display', 'block');
-            return;
-        } else
-        if (e.target.id == "AdminAddCategories") {
-            alertify.genericDialog(AdminAddCategoriesForm[0]);
-            AdminAddCategoriesForm.css('display', 'block');
-            return;
-        } else
-        if (e.target.id == "AdminDeleteProducts") {
-            if (!$('.AdminDeleteProductInWebSite').length)
-                $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');        
-            return;
+            alert("hello");
+
+        if (e.target.type == "submit") {
+            e.preventDefault();
+            let aFormInputsVal = GetFormInfo(this);
+
+            let action = $(this).parent().attr('id');
+            if (action)
+                self[action](e, aFormInputsVal);
         }
 
-    } else {
-        alertify.genericDialog(CallBackInfoDialog[0]);
-        CallBackInfoDialog.css('display', 'block');
-        alertify.error("You Must Singn In");
-    }
+    });
+}
 
-});
+new AdminForms($('form'));

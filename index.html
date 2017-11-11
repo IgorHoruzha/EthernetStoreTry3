@@ -6,12 +6,12 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.11.0/css/alertify.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.11.0/css/alertify.min.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.11.0/alertify.min.js" defer ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.11.0/alertify.min.js" defer></script>
 </head>
 
-<body>
+<body >
     <header id="" class="">
         <div id="header">
             <div id="topHederBlock">
@@ -60,121 +60,123 @@
                     </div>
                     <div id="paging_controls">
                         <span id="searchResults_links">          
-            </span>
+                        </span>
+                    </section>
                 </section>
+            </main>
+            <!-- /header -->
+            <section id="CardProducts">
+                <div id="cardbg">
+                </div>
+                <div id="card">
+                    <div class="CartProduct">
+                        <div class="CartProductName">Price</div>
+                        <div class="CartProductImg">img</div>
+                        <div class="CartCountProduct">countProduct</div>
+                        <div class="CartProductPrice">ProductPrice</div>
+                        <div class="CartTotalProductCost">totalCost</div>
+                    </div>
+                    <section>
+                    </section>
+                </div>
             </section>
-    </main>
-    <!-- /header -->
-    <section id="CardProducts">
-        <div id="cardbg">
-        </div>
-        <div id="card">
-            <div class="CartProduct">
-                <div class="CartProductName">Price</div>
-                <div class="CartProductImg">img</div>
-                <div class="CartCountProduct">countProduct</div>
-                <div class="CartProductPrice">ProductPrice</div>
-                <div class="CartTotalProductCost">totalCost</div>
-            </div>
-            <section>
-            </section>
-        </div>
-    </section>
-    <!-- Пoдлoжкa -->
-    <footer>
-        <section></section>
-        <section id="footerInfoBlock">
-            <div id="About">
-                <h2>ABOUT<h2>
-             <img src="img/Header/logo.png" alt="logo" />
-         <p>Lorem ipsum dolor sit amet,<br/> consectetur adipiscing elit. <br/>Phasellus sollicitudin sem nec <br/>leo tempus fermentum.<br/> Integer consequat, turpis<br/> eget lobortis.</p></div>
-            <div id="FollowUs"><h2>FOLLOW US<h2>
-              <ul>
-                  <li><img src="img/footer/fasebook.png" alt="FACEBOOK">FACEBOOK</li>
-                  <li><img src="img/footer/twitter.png" alt="TWITTER">TWITTER</li>
-                  <li><img src="img/footer/Google.png" alt="GOOGLE">GOOGLE</li>
-                  <li><img src="img/footer/instagram.png" alt="INSTAGRAM">INSTAGRAM</li>
-              </ul>
-            </div>
-            <div id="ContactInfo" >
-                <h2>CONTACT INFO<h2>
-                  Phone: 1.800.555.6789<br/>
-                Fax: 1.888.555.9876<br/>
-                Email: letschat@11thagency.com
-            </div>
-            <div id="Adress">John Doe, Comapny Inc.<br/>
-            12345 North Main Street<br/>Anywhere, USA
-            </div>
-        </section>
-    </footer>
+            <!-- Пoдлoжкa -->
+            <footer>
+                <section></section>
+                <section id="footerInfoBlock">
+                    <div id="About">
+                        <h2>ABOUT<h2>
+                         <img src="img/Header/logo.png" alt="logo" />
+                         <p>Lorem ipsum dolor sit amet,<br/> consectetur adipiscing elit. <br/>Phasellus sollicitudin sem nec <br/>leo tempus fermentum.<br/> Integer consequat, turpis<br/> eget lobortis.</p></div>
+                         <div id="FollowUs">
+                            <h2>FOLLOW US<h2>
+                              <ul>
+                                  <li><img src="img/footer/fasebook.png" alt="FACEBOOK">FACEBOOK</li>
+                                  <li><img src="img/footer/twitter.png" alt="TWITTER">TWITTER</li>
+                                  <li><img src="img/footer/Google.png" alt="GOOGLE">GOOGLE</li>
+                                  <li><img src="img/footer/instagram.png" alt="INSTAGRAM">INSTAGRAM</li>
+                              </ul>
+                          </div>
+                          <div id="ContactInfo" >
+                            <h2>CONTACT INFO<h2>
+                              Phone: 1.800.555.6789<br/>
+                              Fax: 1.888.555.9876<br/>
+                              Email: letschat@11thagency.com
+                          </div>
+                          <div id="Adress">John Doe, Comapny Inc.<br/>
+                            12345 North Main Street<br/>Anywhere, USA
+                        </div>
+                    </section>
+                </footer>  
+                <div id="AdminMenu" style="display: none">
+                    <ul>
+                        <li id="AdminAddProducts">Add product</li>
+                        <li id="AdminAddCategories">Add Categories</li>
+                        <li id="AdminDeleteProducts">Delete Products</li>
+                        <li></li>
+                    </ul>
+                </div>
+                <!-- For js -->
+                <!-- =============== -->          
+                <!-- Admin Products form    -->
+                <div style="display: none">
+
+                 <div id="Autorization">
+                    <form>
+                        <fieldset>
+                            <label>Login</label>
+                            <input type="text" value="admin" name="text"/>
+                            <label> Password </label>
+                            <input type="password" value="admin" name="password" />
+                            <input type="submit" value="Singn In" />
+                        </fieldset>
+                    </form>
+                </div>
+                
+                <div id="AdminAddProductsForm" >
+                    <form>
+                        <fieldset>
+                            <label>Product Name</label>
+                            <input type="text" value="Product Name" name="Fild"/>
+
+                            <label> Url Image </label>                
+                            <input type="text" value="https://pbs.twimg.com/profile_images/857345239794712588/oFv-DFr0.jpg" name="Fild" />
+
+                            <label>Product Info</label>
+                            <input type="text" value="Product Info" name="Fild"/>
+
+                            <label>Price</label>
+                            <input type="text" value="Price" name="Fild"/>
+
+                            <label>Id</label>
+                            <input type="text" value="Id" name="Fild"/>
 
 
- <div id="CallBackInfo" style="display:none;">
-        <form>
-            <fieldset>
-                <label>Login</label>
-                <input type="text" value="admin" name="text"/>
-                <label> Password </label>
-                <input type="password" value="admin" name="password" />
-                <input type="submit" value="Singn In" />
-            </fieldset>
-        </form>
-    </div>
+                            <label>catId</label>
+                            <input type="text" value="catId" name="Fild"/>
 
+                            <input type="submit" value="Add Product" />
+                        </fieldset>
+                    </form>
+                </div>
+                <div id="AdminAddCategoriesForm" ">
+                    <form>
+                        <fieldset>
+                         <label>Categori id</label>
+                         <input type="text" value="Categori" name="Fild"/>      
+                         <label>Categori Name</label>
+                         <input type="text" value="Categori Name" name="Fild"/>       
+                         <input type="submit" value="Add Category" />
+                     </fieldset>
+                 </form>
+             </div>
+   </div>
+             <script src="js/objects/generalMethods.js" defer></script>
+             <script src="js/objects/category.js" defer></script>
+             <script src="js/objects/product.js" defer></script>
+             <script src="js/objects/cart.js" defer></script>
+             <script src="js/storage.js" defer></script>
+             <script src="js/script.js" defer></script>
+         </body>
 
-    <div id="AdminMenu" style="display: none">
-<ul>
-    <li id="AdminAddProducts">Add product</li>
-    <li id="AdminAddCategories">Add Categories</li>
-    <li id="AdminDeleteProducts">Delete Products</li>
-    <li></li>
-</ul>
-    </div>
-<!-- Admin Products form    -->
-<div id="AdminAddProductsForm" style="display:none;">
-        <form>
-            <fieldset>
-                <label>Product Name</label>
-                <input type="text" value="Product Name" name="Fild"/>
-
-                <label> Url Image </label>                
-                <input type="text" value="https://pbs.twimg.com/profile_images/857345239794712588/oFv-DFr0.jpg" name="Fild" />
-
-                 <label>Product Info</label>
-                <input type="text" value="Product Info" name="Fild"/>
-
-                <label>Price</label>
-                <input type="text" value="Price" name="Fild"/>
-
-                <label>Id</label>
-                <input type="text" value="Id" name="Fild"/>
-
-
-                <label>catId</label>
-                <input type="text" value="catId" name="Fild"/>
-
-                <input type="submit" value="Add Product" />
-            </fieldset>
-        </form>
-
-        <div id="AdminAddCategoriesForm" style="display:none;">
-        <form>
-            <fieldset>
-                 <label>Categori id</label>
-                <input type="text" value="Categori" name="Fild"/>      
-                <label>Categori Name</label>
-                <input type="text" value="Categori Name" name="Fild"/>       
-                <input type="submit" value="Add Category" />
-            </fieldset>
-        </form>
-
-   
-    <script src="js/objects/generalMethods.js" defer></script>
-    <script src="js/objects/category.js" defer></script>
-    <script src="js/objects/product.js" defer></script>
-    <script src="js/objects/cart.js" defer></script>
-    <script src="js/storage.js" defer></script>
-    <script src="js/script.js" defer></script>
-</body>
-
-</html>
+         </html>

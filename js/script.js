@@ -20,7 +20,6 @@ if (localStorage.cart) {
     var aCart = JSON.parse(localStorage.cart);
 }
 
-
 function GetProductData(Data) {
     p = JSON.parse(Data, reviwerProducts);
     if (p[0].mPageIsLoaded_Product) {
@@ -31,76 +30,72 @@ function GetProductData(Data) {
 
 function GetCategorytData(Data) {
     c = JSON.parse(Data, reviwerCategories);
-    if (c[0].mPageIsLoaded_Category)
-        c[0].mPageIsLoaded_Category(c);
+    if (c[0].mPageIsLoaded_Category)  c[0].mPageIsLoaded_Category(c);
 }
 
+// function Menu(elem) {
+//     this.save = function() {
+//       alert( 'сохраняю' );
+//     };
+//     this.load = function() {
+//       alert( 'загружаю' );
+//     };
+//     this.search = function() {
+//       alert( 'ищу' );
+//     };
+
+//     var self = this;
+
+//     elem.onclick = function(e) {
+//       var target = e.target;
+//       var action = target.getAttribute('data-action');
+//       if (action) {
+//         self[action]();
+//       }
+//     };
+//   }
+
+//   new Menu(menu);
 
 
-alertify.genericDialog || alertify.dialog('genericDialog', function() {
-    return {
-        main: function(content) {
-            this.setContent(content);
-        },
-        setup: function() {
-            return {
-                focus: {
-                    element: function() {
-                        return this.elements.body.querySelector(this.get('selector'));
-                    },
-                    select: true
-                },
-                options: {
-                    basic: true,
-                    maximizable: false,
-                    resizable: false,
-                    padding: false
-                }
-            };
-        },
-        settings: {
-            selector: undefined
-        }
-    };
-});
+function GetFormInfo(form) {
+    let formFild = form[0].children[0].elements.Fild;
+    console.dir(formFild);
+    let FildValueArr = [];
 
+    for (let i = 0; i < formFild.length; i++)  FildValueArr[i] = $(formFild[i]).val();
+
+    return FildValueArr;
+}
+
+//TODO : Redo this Method
 function showAnswer(data) {
-    console.dir(data);
-    if (data[0] == 'admin' && data[1] == 'admin') {
-        localStorage.login = data[0];
-        localStorage.password = data[1];
-        $('#SignIn').text('admin');
-        $(document).off("click");
-        alertify.success('Welcome ' + data[0]);
-    } else {
-        alertify.error("Incorrect Password");
+    if (data[2] == "Autorization")
+        if (data[3]) {
+            localStorage.login = data[0];
+            localStorage.password = data[1];
+            $('#SignIn').text('admin');
+            $(document).off("click");
+            alertify.success('Welcome ' + data[0]);
+        } else {
+            alertify.error("Incorrect Password");
+        }
+    else if (data[0] == "AddInBaze") {
+        alertify.success(data[1]);
     }
-
 }
 
-function getFormInfo(Form) {
-    console.dir(localStorage.product);
-    let cFormInfo = {
-        name: Form.find("input[name='text']").val(),
-        password: Form.find("input[name='password']").val()
-    };
-
-    return cFormInfo;
-}
 
 var CallBackInfoDialog = $($('#CallBackInfo')[0]);
-
-console.log(localStorage.category);
-
 
 $(function() {
 
     CallBackInfoDialog.click(function(e) {
         if (e.target.type == "submit") {
             e.preventDefault();
-            let szCallBackInfo = getFormInfo(CallBackInfoDialog);
+            let szCallBackInfo = GetFormInfo(CallBackInfoDialog);
             console.log(szCallBackInfo);
-            $.post("php/send.php", szCallBackInfo, showAnswer, "JSON");
+            $.post("php/send.php", { name: szCallBackInfo[0], password: [1] }, showAnswer, "JSON");
         }
 
     });
@@ -129,103 +124,82 @@ $(function() {
 /*Admin Menu*/
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////
 
-let AdminAddProducts = $('#AdminAddProductsForm');
+if (localStorage.login && localStorage.password) {
+    function AdminMenu(elem) {
+        this.AdminAddProductsForm = $("#AdminAddProductsForm");
+        this.AdminAddCategoriesForm = $("#AdminAddCategoriesForm");
+        this.AdminAddProducts = function() {
+            alertify.genericDialog(this.AdminAddProductsForm[0]);
+        };
+        this.AdminAddCategories = function() {
+            alertify.genericDialog(this.AdminAddCategoriesForm[0]);
 
-function GetFormInfo(form) {
-    console.dir(form[0].children[0]);
-    let formFild = form[0].children[0].elements.Fild;
-    console.dir(formFild);
-    let FildValueArr = [];
-
-    for (let i = 0; i < formFild.length; i++) {
-        FildValueArr[i] = $(formFild[i]).val();
-    }
-
-    return FildValueArr;
-
-}
-
-
-function addInBaze(data) {
-    console.dir(data);
-    alertify.success(data);
-}
-
-AdminAddProducts.click(function(e) {
-
-    if (e.target.type == "submit") {
-        e.preventDefault();
-        let aFormInputsVal = GetFormInfo(AdminAddProducts);
-        let NewProduct = new Product(aFormInputsVal[0], aFormInputsVal[1], aFormInputsVal[2], aFormInputsVal[3], aFormInputsVal[4], aFormInputsVal[5]);
-        for (let i = 0; i < p.length; i++) {
-            if (NewProduct.compareV2(NewProduct, p[i])) {
-                alertify.error("Duplicate id or name");
-                return 0;
-            }
-        }
-
-        p[p.length] = NewProduct;
-        $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, addInBaze, "JSON");
-
-        // let szCallBackInfo = getFormInfo(CallBackInfoDialog);
-        console.log("szCallBackInfo");
-    }
-});
-
-
-
-let AdminAddCategoriesForm = $('#AdminAddCategoriesForm');
-
-
-
-AdminAddCategoriesForm.click(function(e) {
-
-    if (e.target.type == "submit") {
-        e.preventDefault();
-        let aFormInputsVal = GetFormInfo(AdminAddCategoriesForm);
-
-        let NewCategory = new Category(aFormInputsVal[0], aFormInputsVal[1]);
-        for (let i = 0; i < c.length; i++) {
-            if (NewCategory.compare(NewCategory, c[i])) {
-                alertify.error("Duplicate Category");
-                return 0;
-            }
-        }
-
-        c[c.length] = NewCategory;
-        $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', 'Category': 'Category', 'Categories': JSON.stringify(c) }, addInBaze, "JSON");
-
-    }
-});
-
-
-
-$('#AdminMenu').click(function(e) {
-    if (localStorage.login && localStorage.password) {
-        if (e.target.id == "AdminAddProducts") {
-            alertify.genericDialog(AdminAddProducts[0]);
-            AdminAddProducts.css('display', 'block');
-            return;
-        } else
-        if (e.target.id == "AdminAddCategories") {
-            alertify.genericDialog(AdminAddCategoriesForm[0]);
-            AdminAddCategoriesForm.css('display', 'block');
-            return;
-        } else
-        if (e.target.id == "AdminDeleteProducts") {
+        };
+        this.AdminDeleteProducts = function() {
             if (!$('.AdminDeleteProductInWebSite').length)
-                $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');        
-            return;
-        }
+                $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');
+        };
 
-    } else {
-        alertify.genericDialog(CallBackInfoDialog[0]);
-        CallBackInfoDialog.css('display', 'block');
-        alertify.error("You Must Singn In");
+        let self = this;
+
+        elem.on('click', function(e) {
+            let action = $(e.target).attr('id');
+            if (action)
+                self[action]();
+        });
     }
 
-});
+    new AdminMenu($('#AdminMenu'));
+
+    /*Admin Forms*/
+
+    function AdminForms(elem) {
+
+        this.AdminAddProductsForm = function(e, aFormInputsVal) {
+            let NewProduct = new Product(aFormInputsVal[0], aFormInputsVal[1], aFormInputsVal[2], aFormInputsVal[3], aFormInputsVal[4], aFormInputsVal[5]);
+            for (let i = 0; i < p.length; i++) {
+                if (NewProduct.compareV2(NewProduct, p[i])) {
+                    alertify.error("Duplicate id or name");
+                    return 0;
+                }
+            }
+
+            p[p.length] = NewProduct;
+            $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, showAnswer, "JSON");
+
+        };
+        this.AdminAddCategoriesForm = function(e, aFormInputsVal) {
+            let NewCategory = new Category(aFormInputsVal[0], aFormInputsVal[1]);
+            for (let i = 0; i < c.length; i++) {
+                if (NewCategory.compare(NewCategory, c[i])) {
+                    alertify.error("Duplicate Category");
+                    return 0;
+                }
+            }
+
+            c[c.length] = NewCategory;
+            $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', 'Category': 'Category', 'Categories': JSON.stringify(c) }, showAnswer, "JSON");
+        };
+
+        var self = this;
+
+        elem.on('click', function(e) {
+
+            if (e.target.type == "submit") {
+                e.preventDefault();
+                let aFormInputsVal = GetFormInfo(this);
+                let action = $(e).attr('id');
+                if (action)
+                    self[action](e, aFormInputsVal);
+            }
+        });
+    }
+
+    new AdminForms($('form'));
+
+} else {
+    alertify.genericDialog(CallBackInfoDialog[0]);
+    CallBackInfoDialog.css('display', 'block');
+    alertify.error("You Must Singn In");
+}

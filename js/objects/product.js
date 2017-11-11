@@ -31,8 +31,6 @@ function Product(name, szProductImage, szProductInfo, price, id, catId) {
 
         }).appendTo(cProduct);
 
-
-
         /*Add product price in product*/
         $('<div>', {
             text: p.price + '$',
@@ -118,10 +116,10 @@ function Product(name, szProductImage, szProductInfo, price, id, catId) {
                             {
                                 $(e.target).parent().remove();
                                 p.splice(index, 1);
-                                $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, addInBaze, "JSON");
+                                $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, null, "JSON");
                               this.mFillProductSection(-1,p);
                                 if (!$('.AdminDeleteProductInWebSite').length)
-                $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');      
+                            $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');      
                                 return false;
                             }
                         });

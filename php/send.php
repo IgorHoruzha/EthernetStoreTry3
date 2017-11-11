@@ -36,18 +36,18 @@ else
 			if(in_array('Product', $array)){
 				$fp = fopen("Products.txt", "w+"); 
 				$test = fwrite($fp,$array["Products"]);
-				echo json_encode ("Products add in baze");
+				echo json_encode (["AddInBaze","Products add in baze"]);
 			}
 			if(in_array('Category', $array)){
 				$fp = fopen("Categories.txt", "w+"); 
 				$test = fwrite($fp,$array["Categories"]);
-				echo json_encode ("Categories add in baze");
+				echo json_encode (["AddInBaze","Categories add in baze"]);
 			}
 
 		}
 		else{
 
-			echo json_encode ([$array["name"] ,$array["password"]]);
+			echo json_encode ([$array["name"] ,$array["password"],"Autorization",true]);
 		}
 //	$fp = fopen("Category.txt", "w+"); // Открываем файл в режиме записи 
 	//$test = fwrite($fp,$array["Category"]); // Запись в файл

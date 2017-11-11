@@ -106,12 +106,25 @@ function Product(name, szProductImage, szProductInfo, price, id, catId) {
 
             }
             if (e.target.className == 'AdminDeleteProductInWebSite') {
-                //TODO : Detete target product 
-console.dir($(e.target).parent());
-console.dir(' TODO:Detete target product');
+         
+                let currentId = $(e.target).parent().attr('id');
+           
+
+
                 alertify.confirm("Delete.",
                     function() {
-
+                        let CurrentElement = $.each(p, function(index, el) {
+                            if (el.id == currentId) 
+                            {
+                                $(e.target).parent().remove();
+                                p.splice(index, 1);
+                                $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, addInBaze, "JSON");
+                              this.mFillProductSection(-1,p);
+                                if (!$('.AdminDeleteProductInWebSite').length)
+                $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');      
+                                return false;
+                            }
+                        });
                         alertify.success('Product deleted');
                     },
                     function() {

@@ -1,4 +1,5 @@
 'use strict'
+   
 
 function generalMethods() {
     this.mClearSelection=function () {

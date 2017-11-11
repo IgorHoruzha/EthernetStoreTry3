@@ -59,7 +59,7 @@ else
 	else
 	{
 		
-		echo json_encode ( 'Incorrect password')	;
+		echo json_encode ( ['Incorrect login or ','password',"Autorization"])	;
 	}
 
 

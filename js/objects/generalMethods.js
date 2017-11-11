@@ -40,3 +40,10 @@ alertify.genericDialog || alertify.dialog('genericDialog', function() {
         }
     };
 });
+
+alertify.closeModalAlertyfiWindowCUSTOM=function ()
+{
+ $(".ajs-no-overflow").removeClass();
+        $(".alertify").remove(); 
+}
+

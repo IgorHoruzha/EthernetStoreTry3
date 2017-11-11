@@ -1,6 +1,6 @@
 'use strict'
 
-
+ 
 function reviwerProducts(key, value) {
     if (value instanceof Array) return value;
     if (typeof value == 'object') return new Product(value.name, value.szProductImage, value.szProductInfo, value.price, value.id, value.catId);
@@ -16,12 +16,6 @@ function reviwerCategories(key, value) {
 let p;
 let c;
 
-if (localStorage.cart) {
-    var aCart = JSON.parse(localStorage.cart);
-}
-
-
-
 function GetProductData(Data) {
     p = JSON.parse(Data, reviwerProducts);
     if (p[0].mPageIsLoaded_Product) {
@@ -30,14 +24,14 @@ function GetProductData(Data) {
     }
 }
 
+if (localStorage.cart) {
+    var aCart = JSON.parse(localStorage.cart);
+}
+
 function GetCategorytData(Data) {
     c = JSON.parse(Data, reviwerCategories);
     if (c[0].mPageIsLoaded_Category) c[0].mPageIsLoaded_Category(c);
 }
-
-var CallBackInfoDialog = $('#Autorization');
-
-
 
 function GetFormInfo(form) {
     let formFild = $(form).find(':input');
@@ -49,14 +43,11 @@ function GetFormInfo(form) {
 }
 
 
-
 function HeaderMenu(elem) {
-
+ let CallBackInfoDialog = $('#Autorization');
     this.SignIn = function() {
         alertify.genericDialog((CallBackInfoDialog.css('display', 'block'))[0]);
-
     };
-
 
     let self = this;
 
@@ -67,13 +58,16 @@ function HeaderMenu(elem) {
     });
 }
 
-
-
+function setAutorizationComplite(UserAccauntName)
+{
+        $('#SignIn').text(UserAccauntName);            
+        $('#SignIn').attr({id: 'authorized'});    
+        $("#AdminMenu").css("display", "block");
+}
 
 $(function() {
-    if (localStorage.login) {
-        $('#SignIn').text('admin');
-        $('#AdminMenu').css('display', 'block');
+    if (localStorage.login && localStorage.password) {   
+        setAutorizationComplite(localStorage.login);    
     } else {
         new HeaderMenu($("body>header"));
     }
@@ -92,12 +86,7 @@ function showAnswer(data) {
         if (data[3]) {
             localStorage.login = data[0];
             localStorage.password = data[1];
-            $('#SignIn').text('admin');
-            
-            $('#SignIn').attr({id: 'authorized'});
-               //$(document).off("click");
-
-            $("#AdminMenu").css("display", "block");
+            setAutorizationComplite(localStorage.login);      
             alertify.success('Welcome ' + data[0]);
             alertify.closeModalAlertyfiWindowCUSTOM();
         } else {
@@ -110,14 +99,11 @@ function showAnswer(data) {
     }
 }
 
-
 /*Admin Menu delegation*/
 /*//////////////////////////////////////////////////////*/
 
-
-/*if (localStorage.login && localStorage.password) {*/
 function AdminMenu(elem) {
-    this.AdminAddProductsForm = $("#AdminAddProductsForm").clone();
+    this.AdminAddProductsForm = $("#AdminAddProductsForm");
     this.AdminAddCategoriesForm = $("#AdminAddCategoriesForm");
     this.AdminAddProducts = function() {
         alertify.genericDialog(this.AdminAddProductsForm[0]);
@@ -145,6 +131,7 @@ new AdminMenu($('#AdminMenu'));
 
 /* Forms delegation*/
 /*//////////////////////////////////////////////////////*/
+
 function AdminForms(elem) {
 
     this.AdminAddProductsForm = function(e, aFormInputsVal) {
@@ -180,12 +167,14 @@ function AdminForms(elem) {
 
     elem.on('click', function(e) {
 
+            alert("hello");
+
         if (e.target.type == "submit") {
             e.preventDefault();
             let aFormInputsVal = GetFormInfo(this);
 
             let action = $(this).parent().attr('id');
-            if (self[action])
+            if (action)
                 self[action](e, aFormInputsVal);
         }
 
@@ -193,12 +182,3 @@ function AdminForms(elem) {
 }
 
 new AdminForms($('form'));
-/*
-} 
-else {
-    alertify.genericDialog(CallBackInfoDialog[0]);
-    CallBackInfoDialog.css('display', 'block');
-    alertify.error("You Must Singn In");
-}
-
-*/

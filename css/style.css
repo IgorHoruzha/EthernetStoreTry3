@@ -1,13 +1,4 @@
-body,
-div,
-img,
-ul,
-li,
-nav,
-header,
-section,
-span,
-footer {
+* {
     /* outline: 1px solid black; */
 }
 
@@ -226,6 +217,7 @@ main #leftColumn #categories ul {}
 main #leftColumn #categories ul li {
     border-bottom: 2px solid #e0e0e0;
     box-sizing: border-box;
+    position: relative;
 }
 
 
@@ -578,6 +570,8 @@ position: fixed;
 top: 24%;
 
 /* width: 121%; */
+
+opacity: 0.8;
 }
 
 #AdminMenu ul{
@@ -710,4 +704,45 @@ margin: 0 auto;
   border-left: 21px solid #F47530;
   border-right: 21px solid #F47530;
   border-bottom: 30px solid transparent;
+}
+
+
+.AdminDeleteCategoriesInWebSite{
+
+}
+
+
+.AdminDeleteCategoriesInWebSite {
+ width: 42px;
+ padding: 0px 0;
+ position: absolute;
+ top: -6px;
+ /* left: 25px; */
+ right: 6px;
+ text-align: center;
+ border-top-left-radius: 3px;
+ background: #36f44f;
+ /* outline: 1px dashed; */
+}
+.AdminDeleteCategoriesInWebSite:before {
+ height: 0;
+ width: 0px;
+ right: -6.03px;
+ top: 0.1px;
+ border-bottom: 6px solid #219e35;
+ border-right: 6px solid transparent;
+}
+.AdminDeleteCategoriesInWebSite:before, .AdminDeleteCategoriesInWebSite:after {
+  content: "";
+  /* height: 0px; */
+  position: absolute;
+}
+.AdminDeleteCategoriesInWebSite:after {
+  height: 0px;
+  width: 0px;
+  bottom: -14px;
+  left: 0;
+  border-left: 21px solid #009688;
+  border-right: 21px solid #8BC34A;
+  border-bottom: 14px solid transparent;
 }

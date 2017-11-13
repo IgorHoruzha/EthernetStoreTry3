@@ -118,6 +118,12 @@ function AdminMenu(elem) {
             $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');
     };
 
+    this.AdminDeleteCategories=function()
+    {
+          if (!$('.AdminDeleteCategoriesInWebSite').length)
+            $('#categories li').append('<div class="AdminDeleteCategoriesInWebSite">x</div>');
+    }
+
     let self = this;
 
     elem.on('click', function(e) {

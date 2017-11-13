@@ -104,22 +104,19 @@ function Product(name, szProductImage, szProductInfo, price, id, catId) {
 
             }
             if (e.target.className == 'AdminDeleteProductInWebSite') {
-         
-                let currentId = $(e.target).parent().attr('id');
-           
 
+                let currentId = $(e.target).parent().attr('id');
 
                 alertify.confirm("Delete.",
                     function() {
                         let CurrentElement = $.each(p, function(index, el) {
-                            if (el.id == currentId) 
-                            {
+                            if (el.id == currentId) {
                                 $(e.target).parent().remove();
                                 p.splice(index, 1);
                                 $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, null, "JSON");
-                              this.mFillProductSection(-1,p);
+                                this.mFillProductSection(-1, p);
                                 if (!$('.AdminDeleteProductInWebSite').length)
-                            $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');      
+                                    $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');
                                 return false;
                             }
                         });
@@ -128,8 +125,7 @@ function Product(name, szProductImage, szProductInfo, price, id, catId) {
                     function() {
                         alertify.error('Cancel');
                     });
-            }
-
+            }       
 
 
         });

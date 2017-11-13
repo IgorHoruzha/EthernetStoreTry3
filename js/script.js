@@ -1,6 +1,6 @@
 'use strict'
 
- 
+
 function reviwerProducts(key, value) {
     if (value instanceof Array) return value;
     if (typeof value == 'object') return new Product(value.name, value.szProductImage, value.szProductInfo, value.price, value.id, value.catId);
@@ -44,7 +44,7 @@ function GetFormInfo(form) {
 
 
 function HeaderMenu(elem) {
- let CallBackInfoDialog = $('#Autorization');
+    let CallBackInfoDialog = $('#Autorization');
     this.SignIn = function() {
         alertify.genericDialog((CallBackInfoDialog.css('display', 'block'))[0]);
     };
@@ -58,16 +58,15 @@ function HeaderMenu(elem) {
     });
 }
 
-function setAutorizationComplite(UserAccauntName)
-{
-        $('#SignIn').text(UserAccauntName);            
-        $('#SignIn').attr({id: 'authorized'});    
-        $("#AdminMenu").css("display", "block");
+function setAutorizationComplite(UserAccauntName) {
+    $('#SignIn').text(UserAccauntName);
+    $('#SignIn').attr({ id: 'authorized' });
+    $("#AdminMenu").css("display", "block");
 }
 
 $(function() {
-    if (localStorage.login && localStorage.password) {   
-        setAutorizationComplite(localStorage.login);    
+    if (localStorage.login && localStorage.password) {
+        setAutorizationComplite(localStorage.login);
     } else {
         new HeaderMenu($("body>header"));
     }
@@ -86,7 +85,7 @@ function showAnswer(data) {
         if (data[3]) {
             localStorage.login = data[0];
             localStorage.password = data[1];
-            setAutorizationComplite(localStorage.login);      
+            setAutorizationComplite(localStorage.login);
             alertify.success('Welcome ' + data[0]);
             alertify.closeModalAlertyfiWindowCUSTOM();
         } else {
@@ -118,11 +117,16 @@ function AdminMenu(elem) {
             $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');
     };
 
-    this.AdminDeleteCategories=function()
-    {
-          if (!$('.AdminDeleteCategoriesInWebSite').length)
+    this.AdminDeleteCategories = function() {
+        if (!$('.AdminDeleteCategoriesInWebSite').length)
             $('#categories li').append('<div class="AdminDeleteCategoriesInWebSite">x</div>');
     }
+
+    this.AdminEditProducts = function() {
+        if (!$('.EditProduct').length)
+            $('.Product').append(' <button type="button" class="btn btn-primary EditProduct" data-toggle="modal" data-target="#exampleModal">Edit Product</button>');
+    }
+
 
     let self = this;
 
@@ -169,11 +173,47 @@ function AdminForms(elem) {
         $.post("php/send.php", { name: aFormInputsVal[0], password: aFormInputsVal[1] }, showAnswer, "JSON");
     }
 
+    this.AdminEditDishForm = function(e, aFormInputsVal) {
+        let nProductId = $(e.target).parent().parent().data('ProdId');
+        let EditProduct = new Product(aFormInputsVal[0], aFormInputsVal[2], aFormInputsVal[5], aFormInputsVal[1], aFormInputsVal[3], aFormInputsVal[4]);
+        let OldProduct = 0;
+
+        $.each(p, function(index, el) {
+            if (el.id == nProductId) {
+                OldProduct = el;
+                p.splice(index, 1);
+                $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, null, "JSON");
+                return false;
+            }
+        });
+
+        let checkForCompareProduct = 0;
+        $.each(p, function(index, el) {
+            if (EditProduct.compareV2(el, EditProduct)) {
+                checkForCompareProduct = 1;
+                p.push(OldProduct);
+                $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, null, "JSON");
+
+                return false;
+            }
+        });
+        if (!checkForCompareProduct) {
+            p.push(EditProduct);
+            $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, null, "JSON");
+            p[0].mFillProductSection(-1, p);
+            if (!$('.EditProduct').length)
+                $('.Product').append(' <button type="button" class="btn btn-primary EditProduct" data-toggle="modal" data-target="#exampleModal">Edit Product</button>');
+            $('#exampleModal').modal('hide');
+            alertify.success("Edit Dish Complete.");
+            return 1;
+        }
+        $('#exampleModal').modal('hide');
+        alertify.error("Error duplicate name or id of product.");
+    }
+
     var self = this;
 
     elem.on('click', function(e) {
-
-            alert("hello");
 
         if (e.target.type == "submit") {
             e.preventDefault();

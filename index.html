@@ -3,15 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Document</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.11.0/css/alertify.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.11.0/alertify.min.js" defer></script>
 </head>
 
-<body >
+<body>
     <header id="" class="">
         <div id="header">
             <div id="topHederBlock">
@@ -86,9 +88,17 @@
                 <section id="footerInfoBlock">
                     <div id="About">
                         <h2>ABOUT<h2>
-                         <img src="img/Header/logo.png" alt="logo" />
-                         <p>Lorem ipsum dolor sit amet,<br/> consectetur adipiscing elit. <br/>Phasellus sollicitudin sem nec <br/>leo tempus fermentum.<br/> Integer consequat, turpis<br/> eget lobortis.</p></div>
-                         <div id="FollowUs">
+                            <img src="img/Header/logo.png" alt="logo"/>
+                            <p>
+                                Lorem ipsum dolor sit amet,
+                                <br/> consectetur adipiscing elit.
+                                <br/> Phasellus sollicitudin sem nec
+                                <br/> leo tempus fermentum.
+                                <br/> Integer consequat, turpis
+                                <br/> eget lobortis.
+                            </p>
+                        </div>
+                        <div id="FollowUs">
                             <h2>FOLLOW US<h2>
                               <ul>
                                   <li><img src="img/footer/fasebook.png" alt="FACEBOOK">FACEBOOK</li>
@@ -97,86 +107,159 @@
                                   <li><img src="img/footer/instagram.png" alt="INSTAGRAM">INSTAGRAM</li>
                               </ul>
                           </div>
-                          <div id="ContactInfo" >
+                          <div id="ContactInfo">
                             <h2>CONTACT INFO<h2>
-                              Phone: 1.800.555.6789<br/>
-                              Fax: 1.888.555.9876<br/>
-                              Email: letschat@11thagency.com
-                          </div>
-                          <div id="Adress">John Doe, Comapny Inc.<br/>
+                              Phone: 1.800.555.6789
+                              <br/>Fax: 1.888.555.9876
+                              <br/>Email: letschat@11thagency.com
+                          </div>        <div id="Adress">John Doe, Comapny Inc.<br/>
                             12345 North Main Street<br/>Anywhere, USA
                         </div>
+
                     </section>
-                </footer>  
+                </footer>
+
                 <div id="AdminMenu" style="display: none">
                     <ul>
                         <li id="AdminAddProducts">Add product</li>
                         <li id="AdminAddCategories">Add Categories</li>
                         <li id="AdminDeleteProducts">Delete Products</li>
                         <li id="AdminDeleteCategories">Delete categories</li>
+                        <li id="AdminEditProducts">Edit Product</li>
                     </ul>
                 </div>
                 <!-- For js -->
                 <!-- =============== -->          
-                <!-- Admin Products form    -->
-                <div style="display: none">
+                <!-- Admin  form    -->
 
-                 <div id="Autorization">
-                    <form>
-                        <fieldset>
-                            <label>Login</label>
-                            <input type="text" value="admin" name="text"/>
-                            <label> Password </label>
-                            <input type="password" value="admin" name="password" />
-                            <input type="submit" value="Singn In" />
-                        </fieldset>
-                    </form>
-                </div>
+                <!-- Button trigger modal -->
+           <!--  <button type="button" class="btn btn-primary EditProduct" data-toggle="modal" data-target="#exampleModal">
+                   Edit Product
+               </button> -->
+
+               <!-- Modal -->
+               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                    <div id="AdminEditDishForm">
+                     <form>
+                      <div class="form-group">
+                        <label for="AdminProductNameInput">Product name</label>
+                        <input type="text" class="form-control" id="AdminProductNameInput" placeholder="Enter  product name" required>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="AdminProductPriceInput">Product Price</label>
+                        <input type="text" class="form-control" id="AdminProductPriceInput" placeholder="Enter  product price" required>
+
+                    </div>  
+
+                    <div class="form-group">
+                        <label for="AdminProductImageInput">Product image</label>
+                        <input type="text" class="form-control" id="AdminProductImageInput" placeholder="Enter  product image" required>
+
+                    </div>  
+
+                    <div class="form-group">
+                        <label for="AdminProductIdInput">Product id</label>
+                        <input type="text" class="form-control" id="AdminProductIdInput" placeholder="Enter  product id" required>
+
+                    </div>  
+
+                    <div class="form-group">
+                        <label for="AdminProductCatIdInput">Product category id</label>
+                        <input type="text" class="form-control" id="AdminProductCatIdInput" placeholder="Enter  product category id" required>                     
+                    </div>
+                  
                 
-                <div id="AdminAddProductsForm" >
-                    <form>
-                        <fieldset>
-                            <label>Product Name</label>
-                            <input type="text" value="Product Name" name="Fild"/>
 
-                            <label> Url Image </label>                
-                            <input type="text" value="https://pbs.twimg.com/profile_images/857345239794712588/oFv-DFr0.jpg" name="Fild" />
+                    <div class="form-group">
+                        <label for="ProductDescriptionTextaera">Product description</label>
+                        <textarea class="form-control" rows="5" id="ProductDescriptionTextaera"  placeholder="Enter  product description" required></textarea>
+                    </div>
 
-                            <label>Product Info</label>
-                            <input type="text" value="Product Info" name="Fild"/>
-
-                            <label>Price</label>
-                            <input type="text" value="Price" name="Fild"/>
-
-                            <label>Id</label>
-                            <input type="text" value="Id" name="Fild"/>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">            
+        </div>
+    </div>
+</div>
+</div>
 
 
-                            <label>catId</label>
-                            <input type="text" value="catId" name="Fild"/>
+<div style="display: none">
 
-                            <input type="submit" value="Add Product" />
-                        </fieldset>
-                    </form>
-                </div>
-                <div id="AdminAddCategoriesForm" ">
-                    <form>
-                        <fieldset>
-                         <label>Categori id</label>
-                         <input type="text" value="Categori" name="Fild"/>      
-                         <label>Categori Name</label>
-                         <input type="text" value="Categori Name" name="Fild"/>       
-                         <input type="submit" value="Add Category" />
-                     </fieldset>
-                 </form>
-             </div>
-   </div>
-             <script src="js/objects/generalMethods.js" defer></script>
-             <script src="js/objects/category.js" defer></script>
-             <script src="js/objects/product.js" defer></script>
-             <script src="js/objects/cart.js" defer></script>
-             <script src="js/storage.js" defer></script>
-             <script src="js/script.js" defer></script>
-         </body>
+   <div id="Autorization">
+    <form>
+        <fieldset>
+            <label>Login</label>
+            <input type="text" value="admin" name="text"/>
+            <label> Password </label>
+            <input type="password" value="admin" name="password" />
+            <input type="submit" value="Singn In" />
+        </fieldset>
+    </form>
+</div>
 
-         </html>
+<div id="AdminAddProductsForm" >
+    <form>
+        <fieldset>
+            <label>Product Name</label>
+            <input type="text" value="Product Name" name="Fild"/>
+
+            <label> Url Image </label>                
+            <input type="text" value="https://pbs.twimg.com/profile_images/857345239794712588/oFv-DFr0.jpg" name="Fild" />
+
+            <label>Product Info</label>
+            <input type="text" value="Product Info" name="Fild"/>
+
+            <label>Price</label>
+            <input type="text" value="Price" name="Fild"/>
+
+            <label>Id</label>
+            <input type="text" value="Id" name="Fild"/>
+
+
+            <label>catId</label>
+            <input type="text" value="catId" name="Fild"/>
+
+            <input type="submit" value="Add Product" />
+        </fieldset>
+    </form>
+</div>
+<div id="AdminAddCategoriesForm" ">
+    <form>
+        <fieldset>
+           <label>Categori id</label>
+           <input type="text" value="Categori" name="Fild"/>      
+           <label>Categori Name</label>
+           <input type="text" value="Categori Name" name="Fild"/>       
+           <input type="submit" value="Add Category" />
+       </fieldset>
+   </form>
+</div>
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" defer ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" defer></script>
+<script src="js/objects/generalMethods.js" defer></script>
+<script src="js/objects/category.js" defer></script>
+<script src="js/objects/product.js" defer></script>
+<script src="js/objects/cart.js" defer></script>
+<script src="js/storage.js" defer></script>
+<script src="js/script.js" defer></script>
+</body>
+
+</html>

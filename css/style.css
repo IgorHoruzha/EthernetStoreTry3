@@ -134,12 +134,13 @@ main header {}
 
 main header #topMainBlockBg {
 
-    background: url(../img/main/bg.png) no-repeat center center;
+background: url(../img/main/bg.png) no-repeat center center;
 
-    background-size: 100%;
+background-size: 100%;
 
-    padding-top: 41.857%;
-    outline: 1px solid red;
+padding-top: 41.857%;
+
+/* outline: 1px solid red; */
 }
 
 main header #search {
@@ -201,15 +202,17 @@ a.SelectedCategory {}
 
 main #leftColumn #categories h3 {
 
-    background-color: red;
+background-color: red;
 
-    color: white;
+color: white;
 
-    box-sizing: border-box;
+box-sizing: border-box;
 
-    padding: 5%;
+padding: 5%;
 
-    text-align: center;
+text-align: center;
+
+margin-bottom: 0;
 }
 
 main #leftColumn #categories ul {}
@@ -236,6 +239,8 @@ width: 100%;
 transition: 0.5s;
 
 padding: 2% 0% 2% 0%;
+
+color: black;
 }
 
 main #leftColumn #categories ul li a img {
@@ -551,10 +556,14 @@ box-sizing: border-box;
 padding: 4%;
 
 width: fit-content;
+
+margin: 0%;
 }
 footer #footerInfoBlock div#FollowUs img{
 
 margin-right: 5%;
+
+width: 45px;
 }
 footer #footerInfoBlock div#Adress {
 
@@ -567,7 +576,9 @@ align-self: center;
 
 position: fixed;
 
-top: 24%;
+top: 0;
+
+bottom: 0;
 
 /* width: 121%; */
 
@@ -745,4 +756,15 @@ margin: 0 auto;
   border-left: 21px solid #009688;
   border-right: 21px solid #8BC34A;
   border-bottom: 14px solid transparent;
+}
+
+.EditProduct{
+    
+position: absolute;
+    
+/* margin: 0 auto; */
+    
+bottom: 0;
+    
+right: 0%;
 }

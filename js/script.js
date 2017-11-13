@@ -173,9 +173,47 @@ function AdminForms(elem) {
         $.post("php/send.php", { name: aFormInputsVal[0], password: aFormInputsVal[1] }, showAnswer, "JSON");
     }
 
+    this.AdminEditDishForm = function(e, aFormInputsVal) {
+        let nProductId = $(e.target).parent().parent().data('ProdId');
+        let EditProduct = new Product(aFormInputsVal[0], aFormInputsVal[2], aFormInputsVal[5], aFormInputsVal[1], aFormInputsVal[3], aFormInputsVal[4]);
+        let OldProduct = 0;
+
+        $.each(p, function(index, el) {
+            if (el.id == nProductId) {
+                OldProduct = el;
+                p.splice(index, 1);
+                $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, null, "JSON");
+                return false;
+            }
+        });
+
+        let checkForCompareProduct = 0;
+        $.each(p, function(index, el) {
+            if (EditProduct.compareV2(el, EditProduct)) {
+                checkForCompareProduct = 1;
+                p.push(OldProduct);
+                $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, null, "JSON");
+
+                return false;
+            }
+        });
+        if (!checkForCompareProduct) {
+            p.push(EditProduct);
+            $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, null, "JSON");
+            p[0].mFillProductSection(-1, p);
+            if (!$('.EditProduct').length)
+                $('.Product').append(' <button type="button" class="btn btn-primary EditProduct" data-toggle="modal" data-target="#exampleModal">Edit Product</button>');
+            $('#exampleModal').modal('hide');
+            alertify.success("Edit Dish Complete.");
+            return 1;
+        }
+        $('#exampleModal').modal('hide');
+        alertify.error("Error duplicate name or id of product.");
+    }
+
     var self = this;
 
-    elem.on('click', function(e) {     
+    elem.on('click', function(e) {
 
         if (e.target.type == "submit") {
             e.preventDefault();

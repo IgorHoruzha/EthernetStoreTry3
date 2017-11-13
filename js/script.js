@@ -121,7 +121,7 @@ function AdminMenu(elem) {
         if (!$('.AdminDeleteCategoriesInWebSite').length)
             $('#categories li').append('<div class="AdminDeleteCategoriesInWebSite">x</div>');
     }
-    
+
     this.AdminEditProducts = function() {
         if (!$('.EditProduct').length)
             $('.Product').append(' <button type="button" class="btn btn-primary EditProduct" data-toggle="modal" data-target="#exampleModal">Edit Product</button>');
@@ -175,9 +175,7 @@ function AdminForms(elem) {
 
     var self = this;
 
-    elem.on('click', function(e) {
-
-        alert("hello");
+    elem.on('click', function(e) {     
 
         if (e.target.type == "submit") {
             e.preventDefault();

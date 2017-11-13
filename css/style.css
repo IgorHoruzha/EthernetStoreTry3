@@ -134,12 +134,13 @@ main header {}
 
 main header #topMainBlockBg {
 
-    background: url(../img/main/bg.png) no-repeat center center;
+background: url(../img/main/bg.png) no-repeat center center;
 
-    background-size: 100%;
+background-size: 100%;
 
-    padding-top: 41.857%;
-    outline: 1px solid red;
+padding-top: 41.857%;
+
+/* outline: 1px solid red; */
 }
 
 main header #search {

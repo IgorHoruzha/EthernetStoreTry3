@@ -105,12 +105,12 @@ function Product(name, szProductImage, szProductInfo, price, id, catId) {
             }
             if (e.target.className == 'AdminDeleteProductInWebSite') {
 
-                let currentId = $(e.target).parent().attr('id');
+                let currentProductId = $(e.target).parent().attr('id');
 
                 alertify.confirm("Delete.",
                     function() {
                         let CurrentElement = $.each(p, function(index, el) {
-                            if (el.id == currentId) {
+                            if (el.id == currentProductId) {
                                 $(e.target).parent().remove();
                                 p.splice(index, 1);
                                 $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, null, "JSON");
@@ -125,8 +125,27 @@ function Product(name, szProductImage, szProductInfo, price, id, catId) {
                     function() {
                         alertify.error('Cancel');
                     });
-            }       
+            }
 
+            if ($(e.target).hasClass('EditProduct')) {
+
+                let currentProductId = $(e.target).parent().attr('id');
+                $('.AdminEditDishForm').data('ProdId', currentProductId);
+                let CurrentElement = $.each(p, function(index, el) {
+                    if (el.id == currentProductId) {
+                        $("#AdminProductNameInput").val(el.name);
+                        $("#AdminProductPriceInput").val(el.price);
+                        $("#AdminProductImageInput").val(el.szProductImage);
+                        $("#AdminProductIdInput").val(el.id);
+                        $("#AdminProductCatIdInput").val(el.catId);
+                        $("#ProductDescriptionTextaera").val(el.szProductInfo);
+
+                        return false;
+                    }
+                });
+
+
+            }
 
         });
     }

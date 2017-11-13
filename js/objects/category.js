@@ -34,10 +34,21 @@ function Category(id, name) {
                 if (e.target.className == 'AdminDeleteCategoriesInWebSite') {
 
                     let currentId = $(e.target).parent().data("catid");
-                    console.dir(currentId);
-                    alertify.confirm("Delete.",
+                  
+                    alertify.confirm('Delate categories comfirm',"Delete "+$(e.target).parent().find('a').text()+'?',
                         function() {
-
+                        let CurrentElement = $.each(c, function(index, el) {
+                            if (el.id == currentId) {
+                                $(e.target).parent().remove();
+                                c.splice(index, 1);
+                                 $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', 'Category': 'Category', 'Categories': JSON.stringify(c) }, showAnswer, "JSON");
+                            
+                                 this.mCreateAndShowCategory(c);
+                                if (!$('.AdminDeleteCategoriesInWebSite').length)
+                                    $('#categories li').append('<div class="AdminDeleteCategoriesInWebSite">x</div>');
+                                return false;
+                            }
+                        });
 
                             alertify.success('Category deleted');
                         },

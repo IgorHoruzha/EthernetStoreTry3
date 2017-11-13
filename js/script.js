@@ -1,6 +1,6 @@
 'use strict'
 
- 
+
 function reviwerProducts(key, value) {
     if (value instanceof Array) return value;
     if (typeof value == 'object') return new Product(value.name, value.szProductImage, value.szProductInfo, value.price, value.id, value.catId);
@@ -44,7 +44,7 @@ function GetFormInfo(form) {
 
 
 function HeaderMenu(elem) {
- let CallBackInfoDialog = $('#Autorization');
+    let CallBackInfoDialog = $('#Autorization');
     this.SignIn = function() {
         alertify.genericDialog((CallBackInfoDialog.css('display', 'block'))[0]);
     };
@@ -58,16 +58,15 @@ function HeaderMenu(elem) {
     });
 }
 
-function setAutorizationComplite(UserAccauntName)
-{
-        $('#SignIn').text(UserAccauntName);            
-        $('#SignIn').attr({id: 'authorized'});    
-        $("#AdminMenu").css("display", "block");
+function setAutorizationComplite(UserAccauntName) {
+    $('#SignIn').text(UserAccauntName);
+    $('#SignIn').attr({ id: 'authorized' });
+    $("#AdminMenu").css("display", "block");
 }
 
 $(function() {
-    if (localStorage.login && localStorage.password) {   
-        setAutorizationComplite(localStorage.login);    
+    if (localStorage.login && localStorage.password) {
+        setAutorizationComplite(localStorage.login);
     } else {
         new HeaderMenu($("body>header"));
     }
@@ -86,7 +85,7 @@ function showAnswer(data) {
         if (data[3]) {
             localStorage.login = data[0];
             localStorage.password = data[1];
-            setAutorizationComplite(localStorage.login);      
+            setAutorizationComplite(localStorage.login);
             alertify.success('Welcome ' + data[0]);
             alertify.closeModalAlertyfiWindowCUSTOM();
         } else {
@@ -118,11 +117,16 @@ function AdminMenu(elem) {
             $('.Product').append('<div class="AdminDeleteProductInWebSite">x</div>');
     };
 
-    this.AdminDeleteCategories=function()
-    {
-          if (!$('.AdminDeleteCategoriesInWebSite').length)
+    this.AdminDeleteCategories = function() {
+        if (!$('.AdminDeleteCategoriesInWebSite').length)
             $('#categories li').append('<div class="AdminDeleteCategoriesInWebSite">x</div>');
     }
+    
+    this.AdminEditProducts = function() {
+        if (!$('.EditProduct').length)
+            $('.Product').append(' <button type="button" class="btn btn-primary EditProduct" data-toggle="modal" data-target="#exampleModal">Edit Product</button>');
+    }
+
 
     let self = this;
 
@@ -173,7 +177,7 @@ function AdminForms(elem) {
 
     elem.on('click', function(e) {
 
-            alert("hello");
+        alert("hello");
 
         if (e.target.type == "submit") {
             e.preventDefault();

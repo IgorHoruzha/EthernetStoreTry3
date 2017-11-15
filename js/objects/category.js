@@ -34,21 +34,21 @@ function Category(id, name) {
                 if (e.target.className == 'AdminDeleteCategoriesInWebSite') {
 
                     let currentId = $(e.target).parent().data("catid");
-                  
-                    alertify.confirm('Delate categories comfirm',"Delete "+$(e.target).parent().find('a').text()+'?',
+
+                    alertify.confirm('Delate categories comfirm', "Delete " + $(e.target).parent().find('a').text() + '?',
                         function() {
-                        let CurrentElement = $.each(c, function(index, el) {
-                            if (el.id == currentId) {
-                                $(e.target).parent().remove();
-                                c.splice(index, 1);
-                                 $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', 'Category': 'Category', 'Categories': JSON.stringify(c) }, showAnswer, "JSON");
-                            
-                                 this.mCreateAndShowCategory(c);
-                                if (!$('.AdminDeleteCategoriesInWebSite').length)
-                                    $('#categories li').append('<div class="AdminDeleteCategoriesInWebSite">x</div>');
-                                return false;
-                            }
-                        });
+                            let CurrentElement = $.each(c, function(index, el) {
+                                if (el.id == currentId) {
+                                    $(e.target).parent().remove();
+                                    c.splice(index, 1);
+                                    $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', 'Category': 'Category', 'Categories': JSON.stringify(c) }, showAnswer, "JSON");
+
+                                    this.mCreateAndShowCategory(c);
+                                    if (!$('.AdminDeleteCategoriesInWebSite').length)
+                                        $('#categories li').append('<div class="AdminDeleteCategoriesInWebSite">x</div>');
+                                    return false;
+                                }
+                            });
 
                             alertify.success('Category deleted');
                         },
@@ -56,6 +56,27 @@ function Category(id, name) {
                             alertify.error('Cancel');
                         });
                 }
+
+
+
+                if ($(e.target).hasClass('EditCaegory')) {
+
+                    let currentCategoryId = $(e.target).parent().parent().data('catid');
+
+                    $('#AdminEditCategoryForm').data('ProdId', currentCategoryId);
+                    let CurrentElement = $.each(c, function(index, el) {
+                        if (el.id == currentCategoryId) {
+
+                            $("#AdminCategoryIdInput").val(el.id);
+                            $("#AdminCategoryNameInput").val(el.name);
+                            return false;
+                        }
+
+                    });
+                }
+
+
+
             })
     }
 

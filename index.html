@@ -126,6 +126,7 @@
                         <li id="AdminDeleteProducts">Delete Products</li>
                         <li id="AdminDeleteCategories">Delete categories</li>
                         <li id="AdminEditProducts">Edit Product</li>
+                        <li id="AdminEditCategories">Edit categories</li>
                     </ul>
                 </div>
                 <!-- For js -->
@@ -138,68 +139,87 @@
                </button> -->
 
                <!-- Modal -->
-               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-                  <div class="modal-body">
-                    <div id="AdminEditDishForm">
-                     <form>
-                      <div class="form-group">
-                        <label for="AdminProductNameInput">Product name</label>
-                        <input type="text" class="form-control" id="AdminProductNameInput" placeholder="Enter  product name" required>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="AdminProductPriceInput">Product Price</label>
-                        <input type="text" class="form-control" id="AdminProductPriceInput" placeholder="Enter  product price" required>
-
-                    </div>  
-
-                    <div class="form-group">
-                        <label for="AdminProductImageInput">Product image</label>
-                        <input type="text" class="form-control" id="AdminProductImageInput" placeholder="Enter  product image" required>
-
-                    </div>  
-
-                    <div class="form-group">
-                        <label for="AdminProductIdInput">Product id</label>
-                        <input type="text" class="form-control" id="AdminProductIdInput" placeholder="Enter  product id" required>
-
-                    </div>  
-
-                    <div class="form-group">
-                        <label for="AdminProductCatIdInput">Product category id</label>
-                        <input type="text" class="form-control" id="AdminProductCatIdInput" placeholder="Enter  product category id" required>                     
-                    </div>
-                  
-                
-
-                    <div class="form-group">
-                        <label for="ProductDescriptionTextaera">Product description</label>
-                        <textarea class="form-control" rows="5" id="ProductDescriptionTextaera"  placeholder="Enter  product description" required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                </form>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
-        <div class="modal-footer">            
+            <div class="modal-body">
+                <div id="AdminEditDishForm">
+                    <form>
+                        <div class="form-group">
+                            <label for="AdminProductNameInput">Product name</label>
+                            <input type="text" class="form-control" id="AdminProductNameInput" placeholder="Enter  product name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="AdminProductPriceInput">Product Price</label>
+                            <input type="text" class="form-control" id="AdminProductPriceInput" placeholder="Enter  product price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="AdminProductImageInput">Product image</label>
+                            <input type="text" class="form-control" id="AdminProductImageInput" placeholder="Enter  product image" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="AdminProductIdInput">Product id</label>
+                            <input type="text" class="form-control" id="AdminProductIdInput" placeholder="Enter  product id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="AdminProductCatIdInput">Product category id</label>
+                            <input type="text" class="form-control" id="AdminProductCatIdInput" placeholder="Enter  product category id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ProductDescriptionTextaera">Product description</label>
+                            <textarea class="form-control" rows="5" id="ProductDescriptionTextaera" placeholder="Enter  product description" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
         </div>
     </div>
 </div>
+
+
+
+     <div class="modal fade" id="CategoryEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="AdminEditCategoryForm">
+                    <form>
+                        <div class="form-group">
+                            <label for="AdminCategoryIdInput">Category id</label>
+                            <input type="text" class="form-control" id="AdminCategoryIdInput" placeholder="Enter  category name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="AdminCategoryNameInput">Category name</label>
+                            <input type="text" class="form-control" id="AdminCategoryNameInput" placeholder="Enter  category name" required>
+                        </div>
+                      
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
 
-
 <div style="display: none">
-
-   <div id="Autorization">
+    <div id="Autorization">
     <form>
         <fieldset>
             <label>Login</label>

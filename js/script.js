@@ -127,6 +127,10 @@ function AdminMenu(elem) {
             $('.Product').append(' <button type="button" class="btn btn-primary EditProduct" data-toggle="modal" data-target="#exampleModal">Edit Product</button>');
     }
 
+    this.AdminEditCategories = function() {
+        if (!$('.EditCaegory').length)
+            $('#categories img').before(' <button type="button" class="btn btn-primary EditCaegory" data-toggle="modal" data-target="#CategoryEditModal">Edit Categories</button>');
+    }
 
     let self = this;
 

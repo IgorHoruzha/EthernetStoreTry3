@@ -734,6 +734,8 @@ margin: 0 auto;
  border-top-left-radius: 3px;
  background: #36f44f;
  /* outline: 1px dashed; */
+ /* transform: rotate(90deg); */
+ opacity: 0.8;
 }
 .AdminDeleteCategoriesInWebSite:before {
  height: 0;
@@ -767,4 +769,9 @@ position: absolute;
 bottom: 0;
     
 right: 0%;
+}
+
+.EditCaegory
+{
+
 }

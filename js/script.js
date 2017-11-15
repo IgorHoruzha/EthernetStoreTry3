@@ -127,6 +127,10 @@ function AdminMenu(elem) {
             $('.Product').append(' <button type="button" class="btn btn-primary EditProduct" data-toggle="modal" data-target="#exampleModal">Edit Product</button>');
     }
 
+    this.AdminEditCategories = function() {
+        if (!$('.EditCaegory').length)
+            $('#categories img').before(' <button type="button" class="btn btn-primary EditCaegory" data-toggle="modal" data-target="#CategoryEditModal">Edit Categories</button>');
+    }
 
     let self = this;
 
@@ -202,14 +206,64 @@ function AdminForms(elem) {
             $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', Product: 'Product', 'Products': JSON.stringify(p) }, null, "JSON");
             p[0].mFillProductSection(-1, p);
             if (!$('.EditProduct').length)
-                $('.Product').append(' <button type="button" class="btn btn-primary EditProduct" data-toggle="modal" data-target="#exampleModal">Edit Product</button>');
+                $('.EditProduct').append(' <button type="button" class="btn btn-primary EditProduct" data-toggle="modal" data-target="#exampleModal">Edit Categories</button>');
             $('#exampleModal').modal('hide');
-            alertify.success("Edit Dish Complete.");
+            alertify.success("Edit category Complete.");
             return 1;
         }
         $('#exampleModal').modal('hide');
         alertify.error("Error duplicate name or id of product.");
     }
+
+    this.AdminEditCategoryForm = function(e, aFormInputsVal) {
+
+        let nCategiryId = $(e.target).parent().parent().data('ProdId');
+        let EditCategiry = new Category(aFormInputsVal[0], aFormInputsVal[1]);
+
+        let OldCategiry = 0;
+
+        $.each(c, function(index, el) {
+            if (el.id == nCategiryId) {
+                OldCategiry = el;
+                c.splice(index, 1);
+                $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', 'Category': 'Category', 'Categories': JSON.stringify(c) }, showAnswer, "JSON");
+
+                return false;
+            }
+           } );
+
+            let checkForCompareCategory = 0;
+            $.each(c, function(index, el) {
+                if (EditCategiry.compare(el, EditCategiry)) {
+                    checkForCompareCategory = 1;
+                    c.push(OldCategiry);
+                    $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', 'Category': 'Category', 'Categories': JSON.stringify(c) }, showAnswer, "JSON");
+
+                    return false;
+                }
+            });
+
+            if (!checkForCompareCategory) {
+
+                c.push(EditCategiry);
+                $.post("php/send.php", { name: localStorage.login, password: localStorage.password, 'SET': 'SET', 'Category': 'Category', 'Categories': JSON.stringify(c) }, showAnswer, "JSON");
+
+                c[0].mCreateAndShowCategory(c);
+            //    p[0].mFillProductSection(-1, p);
+                if (!$('.EditCaegory').length)
+                    $('.EditCaegory').append(' <button type="button" class="btn btn-primary EditCaegory" data-toggle="modal" data-target="#CategoryEditModal">Edit Caegory</button>');
+                $('#CategoryEditModal').modal('hide');
+                alertify.success("Edit Category Complete.");
+                return 1;
+            }
+            $('#CategoryEditModal').modal('hide');
+            alertify.error("Error duplicate name or id of product.");
+
+        }
+
+
+    
+
 
     var self = this;
 

@@ -83,6 +83,8 @@ product.push(new Product("Nikon D7100 Body", 'http://cdn33.printdirect.ru/cache/
 localStorage.setItem("product", JSON.stringify(product));
 localStorage.setItem("category", JSON.stringify(category));
 
+console.log(localStorage.product);
+console.log(localStorage.category);
 
 /*
 

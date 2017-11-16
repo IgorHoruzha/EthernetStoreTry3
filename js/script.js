@@ -1,6 +1,7 @@
 'use strict'
 
 
+
 function reviwerProducts(key, value) {
     if (value instanceof Array) return value;
     if (typeof value == 'object') return new Product(value.name, value.szProductImage, value.szProductInfo, value.price, value.id, value.catId);
@@ -282,3 +283,27 @@ function AdminForms(elem) {
 }
 
 new AdminForms($('form'));
+
+
+/*========Search===============*/
+
+   
+    $("#searchForm input").on("input",function(){
+         let SearchItems=[];
+   // $.post("php/send.php", { 'GET': 'GET', 'Products': 'Products' }, GetProductData);
+    let prod=new Product();
+       console.log("============");
+        let value = $(this).val();
+        $.each(p,function (index, el) {
+            if(el&&el.name.toUpperCase().indexOf(value.toUpperCase()) > -1){
+                console.log(el.name);
+                SearchItems.push(el);
+            }
+        });
+if(SearchItems[0])
+        prod.mFillProductSection(-1,SearchItems);
+    else
+        prod. mClearSelection();
+
+    });
+

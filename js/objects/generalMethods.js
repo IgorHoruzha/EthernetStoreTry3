@@ -7,6 +7,8 @@ function generalMethods() {
             $('#Products').remove();
         if ($('#ProductInfo').length)
             $('#ProductInfo').remove();
+        if ($('#searchResults_links').length)
+               $("#searchResults_links").empty();
 
 
     }

@@ -59,8 +59,7 @@ function Product(name, szProductImage, szProductInfo, price, id, catId) {
         cProducts.prependTo('#mainProducts');
 
 
-        $("#searchResults_links").empty();
-        for (let i = 1; i <= pages; i++) {
+              for (let i = 1; i <= pages; i++) {
             $("<span></span>", {
                 class: "page",
                 text: i
@@ -74,8 +73,8 @@ function Product(name, szProductImage, szProductInfo, price, id, catId) {
     this.mFillProductSection = function(catId = -1, aProducts = null) {
         productsList = [];
         $.each(aProducts, function(index, el) {
-            if (this.catId == catId || catId == -1)
-                productsList.push(this);
+            if (el.catId == catId || catId == -1)
+                productsList.push(el);
         });
 
         pages = Math.ceil(productsList.length / productsOnPage);
